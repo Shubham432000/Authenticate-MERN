@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 const user = require("../models/UserSchema");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 
 router.post("/register", async (req, resp) => {
   const { name, email, password, cpassword } = req.body;
@@ -45,16 +45,26 @@ router.post("/login", async (req, resp) => {
   }
 
   try {
-    const userValid = await user.findOne({email:email});
-    if(userValid){
-      const isMatch = await bcrypt.compare(password,userValid.password)
-      if(!isMatch){
-        resp.status(422).json({ error: "passwoed not match" });
-      }else{
-        
+    const userValid = await user.findOne({ email: email });
+    if (userValid) {
+      const isMatch = await bcrypt.compare(password, userValid.password);
+      if (!isMatch) {
+        resp.status(422).json({ error: "password not match" });
+      } else {
+        // token generate
+        const token = await userValid.generateAuthtoken();
+        console.log(token);
+        resp.cookie("usercookie", token, {
+          expires: new Date(Date.now() + 9000000),
+          httpOnly: true,
+        });
+        const result = {
+          userValid,
+          token,
+        };
+        resp.status(201).json({ status: 201, result });
       }
     }
-    
   } catch (error) {
     resp.status(404).json(error);
   }
