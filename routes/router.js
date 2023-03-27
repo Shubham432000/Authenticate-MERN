@@ -49,7 +49,7 @@ router.post("/login", async (req, resp) => {
     if (userValid) {
       const isMatch = await bcrypt.compare(password, userValid.password);
       if (!isMatch) {
-        resp.status(422).json({ error: "password not match" });
+        resp.status(422).json({ error: "password does  not match" });
       } else {
         // token generate
         const token = await userValid.generateAuthtoken();
