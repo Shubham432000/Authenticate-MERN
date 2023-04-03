@@ -9,6 +9,6 @@ app.use(express.json())
 app.use(router)
 const port=8003
 app.listen(port,()=>{
-    console.log(`serveris start port no ${port}`)
+    console.log(`server is start port no ${port}`)
     
 })

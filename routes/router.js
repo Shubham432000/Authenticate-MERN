@@ -41,7 +41,7 @@ router.post("/login", async (req, resp) => {
 
   if (!email || !password) {
     console.log("fill all the details");
-    resp.status(422).json({ error: "fill the details" });
+    resp.status(422).json({ error: "fill the detail" });
   }
 
   try {
@@ -54,7 +54,7 @@ router.post("/login", async (req, resp) => {
         // token generate
         const token = await userValid.generateAuthtoken();
         console.log(token);
-        resp.cookie("usercookie", token, {
+        resp.cookie("user cookie", token, {
           expires: new Date(Date.now() + 9000000),
           httpOnly: true,
         });
