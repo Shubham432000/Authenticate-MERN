@@ -54,7 +54,7 @@ router.post("/login", async (req, resp) => {
         // token generate
         const token = await userValid.generateAuthtoken();
         console.log(token);
-        resp.cookie("user cookie", token, {
+        resp.cookie("user cookies", token, {
           expires: new Date(Date.now() + 9000000),
           httpOnly: true,
         });
