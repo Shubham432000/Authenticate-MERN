@@ -8,7 +8,7 @@ mongoose.connect(DBS,{
     useNewUrlParser:true,
     useUnifiedTopology:true
 }).then(()=>{
-   console.log("connections start")
+   console.log("connections starts")
 }).catch((error)=>{
     console.log(error.message)
 })
